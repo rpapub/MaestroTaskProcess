@@ -4,6 +4,7 @@
   "description": "UiPath Studio template for RPA workflows triggered as tasks in Maestro BPMN processes.",
   "main": "MainEntrypoint.xaml",
   "dependencies": {
+    "UiPath.CodedWorkflows": "[23.10.5]",
     "UiPath.System.Activities": "[22.10.4]",
     "UiPath.Testing.Activities": "[22.10.3]"
   },
@@ -41,7 +42,15 @@
     "processOptions": {
       "ignoredFiles": []
     },
-    "fileInfoCollection": [],
+    "fileInfoCollection": [
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "dfe7bd13-72b0-43e1-8861-1c8285daa372",
+        "testCaseType": "TestCase",
+        "executionTemplateInvokeIsolated": false,
+        "fileName": "Tests\\EndToEnd\\TestCase_MainEntrypoint.xaml"
+      }
+    ],
     "modernBehavior": false,
     "saveToCloud": false
   },
@@ -50,6 +59,12 @@
     {
       "filePath": "MainEntrypoint.xaml",
       "uniqueId": "0d90c763-f814-4b6c-ac31-84dba810a80c",
+      "input": [],
+      "output": []
+    },
+    {
+      "filePath": "PathKeeper.xaml",
+      "uniqueId": "4579da8f-107d-4877-987f-cc5db58f35d4",
       "input": [],
       "output": []
     }
