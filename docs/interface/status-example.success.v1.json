@@ -1,0 +1,16 @@
+{
+  "isSuccess": true,
+  "errorMessage": null,
+  "errorType": null,
+  "code": "Completed",
+  "details": {
+    "recordsProcessed": 42,
+    "workflow": "InvoiceApproval",
+    "version": "v1"
+  },
+  "retryAfter": null,
+  "source": "Main.Process",
+  "exceptionType": null,
+  "timestamp": "2025-06-22T14:32:00Z",
+  "durationMs": 14250
+}

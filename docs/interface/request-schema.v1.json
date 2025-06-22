@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Maestro Task Request",
+  "type": "object",
+  "properties": {
+    "version": { "type": "string" },
+    "request": {
+      "type": "object",
+      "properties": {
+        "correlationId": { "type": "string" },
+        "requestId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "logContext": { "type": "object" },
+        "payload": { "type": "object" }
+      },
+      "required": ["payload"]
+    }
+  },
+  "required": ["version", "request"]
+}

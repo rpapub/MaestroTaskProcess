@@ -1,0 +1,33 @@
+{
+  "result": {
+    "customerId": "CUST-77821",
+    "records": [
+      {
+        "date": "2025-06-03",
+        "orderId": "ORD-10221",
+        "amount": 194.50,
+        "status": "Completed"
+      },
+      {
+        "date": "2025-06-07",
+        "orderId": "ORD-10295",
+        "amount": 89.00,
+        "status": "Pending"
+      }
+    ]
+  },
+  "status": {
+    "isSuccess": true,
+    "errorMessage": null,
+    "errorType": null,
+    "code": "Completed",
+    "details": {
+      "recordsFound": 2
+    },
+    "retryAfter": null,
+    "source": "LegacyApp.DataFetch",
+    "exceptionType": null,
+    "timestamp": "2025-06-22T14:21:12Z",
+    "durationMs": 7200
+  }
+}

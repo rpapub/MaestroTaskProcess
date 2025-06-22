@@ -1,0 +1,15 @@
+{
+  "isSuccess": false,
+  "errorMessage": "Login failed due to timeout.",
+  "errorType": "retryable",
+  "code": "LoginTimeout",
+  "details": {
+    "timeoutSeconds": 30,
+    "retryCount": 2
+  },
+  "retryAfter": "2025-06-22T14:35:00Z",
+  "source": "AppA.Login",
+  "exceptionType": "System.TimeoutException",
+  "timestamp": "2025-06-22T14:30:45Z",
+  "durationMs": 18500
+}

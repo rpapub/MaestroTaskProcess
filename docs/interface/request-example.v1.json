@@ -1,0 +1,19 @@
+{
+  "version": "v1",
+  "request": {
+    "correlationId": "123e4567-e89b-12d3-a456-426614174000",
+    "requestId": "req-20250622-001",
+    "timestamp": "2025-06-22T14:20:00Z",
+    "logContext": {
+      "workflow": "LegacyDataFetch",
+      "env": "Production"
+    },
+    "payload": {
+      "customerId": "CUST-77821",
+      "dateRange": {
+        "from": "2025-06-01",
+        "to": "2025-06-15"
+      }
+    }
+  }
+}
