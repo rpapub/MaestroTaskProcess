@@ -18,8 +18,8 @@
       "DataSourceItems": null
     },
     {
-      "Name": "request",
-      "DisplayName": "request",
+      "Name": "Response",
+      "DisplayName": "Response",
       "Category": null,
       "Tooltip": null,
       "Placeholder": null,
@@ -30,8 +30,8 @@
       "DataSourceItems": null
     },
     {
-      "Name": "result",
-      "DisplayName": "result",
+      "Name": "Request",
+      "DisplayName": "Request",
       "Category": null,
       "Tooltip": null,
       "Placeholder": null,
@@ -42,8 +42,8 @@
       "DataSourceItems": null
     },
     {
-      "Name": "status",
-      "DisplayName": "status",
+      "Name": "Status",
+      "DisplayName": "Status",
       "Category": null,
       "Tooltip": null,
       "Placeholder": null,
