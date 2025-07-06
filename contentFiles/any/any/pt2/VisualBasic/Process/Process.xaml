@@ -75,20 +75,20 @@
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="650.8571428571428,835.1828571428571" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="924,449" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence sap:VirtualizedContainerService.HintSize="531.4285714285714,406.85714285714283" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="DogFooding" sap:VirtualizedContainerService.HintSize="530,426" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Now.Second Mod 3]" sap:VirtualizedContainerService.HintSize="497.14285714285717,324" sap2010:WorkflowViewState.IdRef="Switch`1_1">
-        <Throw x:Key="0" Exception="[New BusinessRuleException(&quot;Simulated business error&quot;)]" sap:VirtualizedContainerService.HintSize="333.7142857142857,92.57142857142857" sap2010:WorkflowViewState.IdRef="Throw_1" />
+      <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Now.Second Mod 3]" sap:VirtualizedContainerService.HintSize="496,343" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+        <Throw x:Key="0" Exception="[New BusinessRuleException(&quot;Simulated business error&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_1" />
         <x:Null x:Key="1" />
         <x:Null x:Key="2" />
       </Switch>
