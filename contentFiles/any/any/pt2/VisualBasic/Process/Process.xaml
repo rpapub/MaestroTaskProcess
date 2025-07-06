@@ -1,4 +1,11 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Process" VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Process_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mm="clr-namespace:MaestroTaskProcessTemplate.Models;assembly=MaestroTaskProcessTemplate.Core" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="req" Type="InArgument(mm:Request)" />
+  </x:Members>
+  <VisualBasic.Settings>
+    <x:Null />
+  </VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>Process_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <sco:Collection x:TypeArguments="x:String">
       <x:String>System.Activities</x:String>
@@ -29,6 +36,7 @@
       <x:String>System.Linq.Expressions</x:String>
       <x:String>System.Runtime.Serialization</x:String>
       <x:String>System.Numerics</x:String>
+      <x:String>MaestroTaskProcessTemplate.Models</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -73,25 +81,96 @@
       <AssemblyReference>System.Runtime.Serialization.Formatters</AssemblyReference>
       <AssemblyReference>System.Runtime.Serialization.Primitives</AssemblyReference>
       <AssemblyReference>System.Runtime.Numerics</AssemblyReference>
+      <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>System.Collections.NonGeneric</AssemblyReference>
+      <AssemblyReference>MaestroTaskProcessTemplate.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="924,449" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="Process" sap:VirtualizedContainerService.HintSize="1039,953.04" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="DogFooding" sap:VirtualizedContainerService.HintSize="530,426" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="DogFooding" sap:VirtualizedContainerService.HintSize="530,900" sap2010:WorkflowViewState.IdRef="Sequence_2">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="switchKey" />
+        <Variable x:TypeArguments="x:String" Name="payloadStr" />
+      </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <Switch x:TypeArguments="x:Int32" DisplayName="Switch" Expression="[Now.Second Mod 3]" sap:VirtualizedContainerService.HintSize="496,343" sap2010:WorkflowViewState.IdRef="Switch`1_1">
-        <Throw x:Key="0" Exception="[New BusinessRuleException(&quot;Simulated business error&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_1" />
-        <x:Null x:Key="1" />
-        <x:Null x:Key="2" />
+      <Assign sap:VirtualizedContainerService.HintSize="496,114" sap2010:WorkflowViewState.IdRef="Assign_2">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[payloadStr]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[TryCast(req.Payload, String)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="496,115" sap2010:WorkflowViewState.IdRef="Assign_1">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[switchKey]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String" xml:space="preserve">[If(payloadStr IsNot Nothing AndAlso payloadStr.ToLowerInvariant().Contains("bre"), "BUSINESS",
+If(payloadStr.ToLowerInvariant().Contains("sysex"), "SYSTEM",
+If(payloadStr.ToLowerInvariant().Contains("retryable"), "RETRYABLE",
+If(payloadStr.ToLowerInvariant().Contains("nonretryable"), "NONRETRYABLE",
+If(payloadStr.ToLowerInvariant().Contains("timeout"), "TIMEOUT", "DEFAULT")))))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Switch x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="BUSINESS&#xD;&#xA;SYSTEM&#xD;&#xA;RETRYABLE&#xD;&#xA;NONRETRYABLE&#xD;&#xA;TIMEOUT&#xD;&#xA;DEFAULT&#xD;&#xA;" DisplayName="Switch" Expression="[switchKey]" sap:VirtualizedContainerService.HintSize="496,513" sap2010:WorkflowViewState.IdRef="Switch`1_4">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <Throw x:Key="BUSINESS" Exception="[New BusinessRuleException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_5" />
+        <Throw x:Key="SYSTEM" Exception="[New System.Exception(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_6" />
+        <Throw x:Key="RETRYABLE" Exception="[New RpaPub.Devkit.RetryableFailureException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_8" />
+        <Throw x:Key="NONRETRYABLE" Exception="[New RpaPub.Devkit.NonRetryableFailureException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_7" />
+        <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" x:Key="TIMEOUT" DisplayName="Process\DogFood\Timeout.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="347,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Process\DogFood\Timeout.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <scg:Dictionary x:TypeArguments="x:String, Argument" />
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
       </Switch>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="496,75" sap2010:WorkflowViewState.IdRef="CommentOut_1">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="530,516" sap2010:WorkflowViewState.IdRef="Sequence_3">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <Switch x:TypeArguments="x:Int32" sap2010:Annotation.AnnotationText="0 New BusinessRuleException&#xA;1 New System.Exception&#xA;2 New RetryableFailureException&#xA;3 New NonRetryableFailureException&#xA;4 Timeout&#xA;&#xD;&#xA;If(req.Payload.ToLowerInvariant().Contains(&quot;business&quot;), &quot;BUSINESS&quot;,&#xD;&#xA;          If(req.Payload.ToLowerInvariant().Contains(&quot;system&quot;), &quot;SYSTEM&quot;,&#xD;&#xA;          If(req.Payload.ToLowerInvariant().Contains(&quot;retryable&quot;), &quot;RETRYABLE&quot;,&#xD;&#xA;          If(req.Payload.ToLowerInvariant().Contains(&quot;nonretryable&quot;), &quot;NONRETRYABLE&quot;,&#xD;&#xA;          If(req.Payload.ToLowerInvariant().Contains(&quot;timeout&quot;), &quot;TIMEOUT&quot;, &quot;DEFAULT&quot;)))))&#xD;&#xA;" DisplayName="Switch" Expression="[Now.Second Mod 5]" sap:VirtualizedContainerService.HintSize="496,456" sap2010:WorkflowViewState.IdRef="Switch`1_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Throw x:Key="0" Exception="[New BusinessRuleException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_1" />
+              <Throw x:Key="1" Exception="[New System.Exception(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_2" />
+              <Throw x:Key="2" Exception="[New RpaPub.Devkit.NonRetryableFailureException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_3" />
+              <Throw x:Key="3" Exception="[New RpaPub.Devkit.RetryableFailureException(&quot;dogfood&quot;)]" sap:VirtualizedContainerService.HintSize="334,90" sap2010:WorkflowViewState.IdRef="Throw_4" />
+              <ui:InvokeWorkflowFile x:Key="4" ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Process\DogFood\Timeout.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="340,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" Level="{x:Null}" LogEntry="{x:Null}" LogExit="{x:Null}" Timeout="{x:Null}" UnSafe="False" WorkflowFileName="Process\DogFood\Timeout.xaml">
+                <ui:InvokeWorkflowFile.Arguments>
+                  <scg:Dictionary x:TypeArguments="x:String, Argument" />
+                </ui:InvokeWorkflowFile.Arguments>
+              </ui:InvokeWorkflowFile>
+            </Switch>
+          </Sequence>
+        </ui:CommentOut.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:CommentOut>
     </Sequence>
   </Sequence>
 </Activity>
