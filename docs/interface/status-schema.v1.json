@@ -1,21 +1,49 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Status Object",
+  "title": "Maestro Task Status",
   "type": "object",
   "properties": {
     "isSuccess": { "type": "boolean" },
-    "errorMessage": { "type": ["string", "null"] },
+
+    "errorMessage": {
+      "type": ["string", "null"]
+    },
+
     "errorType": {
       "type": ["string", "null"],
       "enum": ["retryable", "nonretryable", "unknown", null]
     },
-    "code": { "type": ["string", "null"] },
-    "details": { "type": "object" },
-    "retryAfter": { "type": ["string", "null"], "format": "date-time" },
-    "source": { "type": ["string", "null"] },
-    "exceptionType": { "type": ["string", "null"] },
-    "timestamp": { "type": "string", "format": "date-time" },
-    "durationMs": { "type": "integer" }
+
+    "code": {
+      "type": ["string", "null"]
+    },
+
+    "details": {
+      "type": ["object", "null"],
+      "additionalProperties": true
+    },
+
+    "retryAfter": {
+      "type": ["string", "null"],
+      "format": "date-time"
+    },
+
+    "source": {
+      "type": ["string", "null"]
+    },
+
+    "exceptionType": {
+      "type": ["string", "null"]
+    },
+
+    "timestamp": {
+      "type": "string",
+      "format": "date-time"
+    },
+
+    "durationMs": {
+      "type": "integer"
+    }
   },
   "required": ["isSuccess", "timestamp", "durationMs"]
 }

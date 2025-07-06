@@ -3,8 +3,10 @@
   "title": "Maestro Task Response",
   "type": "object",
   "properties": {
-    "result": { "type": "object" },
-    "status": { "$ref": "./status-schema.v1.json" }
+    "response": {
+      "type": ["object", "null"],
+      "description": "Free-form response payload returned by the task. Can be a JObject or null."
+    }
   },
-  "required": ["status"]
+  "required": []
 }
