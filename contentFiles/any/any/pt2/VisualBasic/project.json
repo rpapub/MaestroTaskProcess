@@ -50,6 +50,12 @@
         "testCaseType": "TestCase",
         "executionTemplateInvokeIsolated": false,
         "fileName": "Tests\\EndToEnd\\TestCase_MainEntrypoint.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "9615e2f9-470c-44f4-9e06-5e08b754740d",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\Unit\\TestCase_GlobalErrorHelpers_ValidType.xaml"
       }
     ],
     "modernBehavior": false,

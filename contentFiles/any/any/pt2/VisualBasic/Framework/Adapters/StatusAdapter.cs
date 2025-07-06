@@ -7,7 +7,8 @@ namespace MaestroTaskProcessTemplate.Adapters
     public static class StatusAdapter
     {
         /// <summary>
-        /// Updates a Status object based on ErrorContext
+        /// Updates a Status object based on ErrorContext.
+        /// This method should be called in the teardown phase to finalize the status.
         /// </summary>
         public static void UpdateFromError(Status status, ErrorContext err)
         {
@@ -18,12 +19,15 @@ namespace MaestroTaskProcessTemplate.Adapters
             status.ErrorType     = err.ErrorType;
             status.ExceptionType = err.ExceptionType;
             status.RetryAfter    = err.RetryAfterIsoUtc;
-            status.Code          = $"FailedIn:{err.FailedPhase}";
+            status.Source        = err.Source;
+            status.Code          = err.Code;
+            status.Details       = err.Details;
             status.Timestamp     = DateTime.UtcNow;
         }
 
         /// <summary>
-        /// Marks a Status as successful
+        /// Marks a Status object as successful.
+        /// Should be used when no error was detected during execution.
         /// </summary>
         public static void MarkSuccess(Status status)
         {
@@ -33,7 +37,8 @@ namespace MaestroTaskProcessTemplate.Adapters
         }
 
         /// <summary>
-        /// Converts a Status model into a JObject for output binding
+        /// Converts a Status instance into a JObject, suitable for JSON serialization or output argument binding.
+        /// Null values are omitted for schema cleanliness.
         /// </summary>
         public static JObject ToJObject(Status status)
         {
