@@ -5,39 +5,44 @@ namespace MaestroTaskProcessTemplate.Framework.Adapters
 {
     public static class RequestDeserializer
     {
-        // This method is a stub. Developers must implement their own payload mapping here.
-        public static T ExtractPayload<T>(Dictionary<string, object> requestPayload)
+        /// <summary>
+        /// Deserializes the generic payload object to a strongly typed T.
+        /// </summary>
+        public static T ExtractPayload<T>(object payload)
         {
-            // Example: use Newtonsoft or manual mapping
+            // NOTE: implement your logic here — for example:
+            // return JsonConvert.DeserializeObject<T>(payload.ToString());
             throw new NotImplementedException("You must implement payload deserialization.");
         }
 
-        // Optional helper if you want a raw payload accessor
-        public static Dictionary<string, object> GetRawPayload(object requestArgument)
+        /// <summary>
+        /// Attempts to extract the payload dictionary from a flat request object.
+        /// </summary>
+        public static Dictionary<string, object> GetRawPayload(object request)
         {
-            if (requestArgument is Dictionary<string, object> root &&
-                root.TryGetValue("request", out var reqObj) &&
-                reqObj is Dictionary<string, object> reqDict &&
-                reqDict.TryGetValue("payload", out var payloadObj) &&
+            if (request is Dictionary<string, object> dict &&
+                dict.TryGetValue("payload", out var payloadObj) &&
                 payloadObj is Dictionary<string, object> payloadDict)
             {
                 return payloadDict;
             }
 
-            throw new ArgumentException("Invalid request structure.");
+            throw new ArgumentException("Missing or invalid 'payload' field in request.");
         }
+
+        /// <summary>
+        /// Returns payload as a string if it is a single-string value.
+        /// </summary>
         public static string TryExtractSingleStringPayload(object request)
         {
-            if (request is Dictionary<string, object> root &&
-                root.TryGetValue("request", out var requestObj) &&
-                requestObj is Dictionary<string, object> reqDict &&
-                reqDict.TryGetValue("payload", out var payloadObj) &&
+            if (request is Dictionary<string, object> dict &&
+                dict.TryGetValue("payload", out var payloadObj) &&
                 payloadObj is string payloadString)
             {
                 return payloadString;
             }
 
-            return null; // not a single-string payload
+            return null;
         }
     }
 }

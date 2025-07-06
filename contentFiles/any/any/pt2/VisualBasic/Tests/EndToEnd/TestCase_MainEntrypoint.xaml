@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="TestCase_Scratch" this:TestCase_Scratch.in_Environment="dev" this:TestCase_Scratch.in_version="v1" this:TestCase_Scratch.in_correlationId="123e4567-e89b-12d3-a456-426614174000" this:TestCase_Scratch.in_requestId="req-001" this:TestCase_Scratch.in_timestamp="07/06/2025 10:30:00" this:TestCase_Scratch.in_logContext="DataImport" this:TestCase_Scratch.in_payload="trigger-snapshot" this:TestCase_Scratch.in_IsSuccessExpected="True" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCase_Scratch" this:TestCase_Scratch.in_Environment="dev" this:TestCase_Scratch.in_version="v1" this:TestCase_Scratch.in_correlationId="123e4567-e89b-12d3-a456-426614174000" this:TestCase_Scratch.in_requestId="req-001" this:TestCase_Scratch.in_timestamp="07/06/2025 10:30:00" this:TestCase_Scratch.in_payload="BRE" this:TestCase_Scratch.in_IsSuccessExpected="False" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=System.Private.CoreLib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Environment" Type="InArgument(x:String)" />
     <x:Property Name="in_version" Type="InArgument(x:String)" />
@@ -10,6 +10,11 @@
     <x:Property Name="in_IsSuccessExpected" Type="InArgument(x:String)" />
     <x:Property Name="in_Remark" Type="InArgument(x:String)" />
   </x:Members>
+  <this:TestCase_Scratch.in_logContext>
+    <InArgument x:TypeArguments="x:String">
+      <Literal x:TypeArguments="x:String" Value="" />
+    </InArgument>
+  </this:TestCase_Scratch.in_logContext>
   <this:TestCase_Scratch.in_Remark>
     <InArgument x:TypeArguments="x:String">
       <Literal x:TypeArguments="x:String" Value="" />
@@ -53,6 +58,10 @@
       <x:String>System.ComponentModel</x:String>
       <x:String>System.Collections.Specialized</x:String>
       <x:String>System.Linq.Expressions</x:String>
+      <x:String>System.Activities.Runtime.Collections</x:String>
+      <x:String>UiPath.Testing</x:String>
+      <x:String>UiPath.Testing.Activities</x:String>
+      <x:String>UiPath.Shared.Activities</x:String>
     </sco:Collection>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -102,9 +111,12 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>System.Private.Uri</AssemblyReference>
       <AssemblyReference>System.Collections</AssemblyReference>
+      <AssemblyReference>MaestroTaskProcessTemplate.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Testing</AssemblyReference>
+      <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="TestCase_Scratch" sap:VirtualizedContainerService.HintSize="1161,986.04" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="TestCase_Scratch" sap:VirtualizedContainerService.HintSize="1022,1419" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
       <Variable x:TypeArguments="njl:JObject" Name="request" />
       <Variable x:TypeArguments="njl:JObject" Name="StatusReturned" />
@@ -114,7 +126,7 @@
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="468,395" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence DisplayName="... Given" sap:VirtualizedContainerService.HintSize="472,519" sap2010:WorkflowViewState.IdRef="Sequence_2">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:Object" Default="[String.Empty]" Name="payload" />
       </Sequence.Variables>
@@ -125,10 +137,15 @@
       </sap:WorkflowViewStateService.ViewState>
       <ui:InvokeCode ContinueOnError="{x:Null}" Code="Try&#xA;    payload = JToken.Parse(in_payload)&#xA;Catch ex As Exception&#xA;    payload = JValue.CreateString(in_payload)&#xA;End Try&#xA;" DisplayName="Invoke Code" sap:VirtualizedContainerService.HintSize="434,197" sap2010:WorkflowViewState.IdRef="InvokeCode_1">
         <ui:InvokeCode.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_payload">[in_payload]</InArgument>
-          <OutArgument x:TypeArguments="njl:JToken" x:Key="payload" />
+          <InArgument x:TypeArguments="x:String" x:Key="in_payload">
+            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_payload" />
+          </InArgument>
+          <OutArgument x:TypeArguments="njl:JToken" x:Key="payload">
+            <VisualBasicReference x:TypeArguments="njl:JToken" ExpressionText="payload" />
+          </OutArgument>
         </ui:InvokeCode.Arguments>
       </ui:InvokeCode>
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,124" sap2010:WorkflowViewState.IdRef="LogMessage_2" Message="[payload]" />
       <Assign sap:VirtualizedContainerService.HintSize="434,106" sap2010:WorkflowViewState.IdRef="Assign_1">
         <Assign.To>
           <OutArgument x:TypeArguments="njl:JObject">[request]</OutArgument>
@@ -144,34 +161,55 @@
         </Assign.Value>
       </Assign>
     </Sequence>
-    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="468,228" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence DisplayName="... When" sap:VirtualizedContainerService.HintSize="472,456" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="MainEntrypoint.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="416,136" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="MainEntrypoint.xaml">
-        <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="version">
-            <VisualBasicValue x:TypeArguments="x:String" ExpressionText="in_version" />
-          </InArgument>
-          <OutArgument x:TypeArguments="njl:JObject" x:Key="Response" />
-          <InArgument x:TypeArguments="njl:JObject" x:Key="Request">
-            <VisualBasicValue x:TypeArguments="njl:JObject" ExpressionText="request" />
-          </InArgument>
-          <OutArgument x:TypeArguments="njl:JObject" x:Key="Status">
-            <VisualBasicReference x:TypeArguments="njl:JObject" ExpressionText="StatusReturned" />
-          </OutArgument>
-        </ui:InvokeWorkflowFile.Arguments>
-      </ui:InvokeWorkflowFile>
+      <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="438,364" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+        <TryCatch.Try>
+          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="MainEntrypoint.xaml - Invoke Workflow File" sap:VirtualizedContainerService.HintSize="334,113" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="MainEntrypoint.xaml">
+            <ui:InvokeWorkflowFile.Arguments>
+              <InArgument x:TypeArguments="x:String" x:Key="version">[in_version]</InArgument>
+              <OutArgument x:TypeArguments="njl:JObject" x:Key="Response" />
+              <InArgument x:TypeArguments="njl:JObject" x:Key="Request">[request]</InArgument>
+              <OutArgument x:TypeArguments="njl:JObject" x:Key="Status">[StatusReturned]</OutArgument>
+            </ui:InvokeWorkflowFile.Arguments>
+          </ui:InvokeWorkflowFile>
+        </TryCatch.Try>
+        <TryCatch.Catches>
+          <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="404,22" sap2010:WorkflowViewState.IdRef="Catch`1_1">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ActivityAction x:TypeArguments="s:Exception">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
+              </ActivityAction.Argument>
+            </ActivityAction>
+          </Catch>
+        </TryCatch.Catches>
+      </TryCatch>
     </Sequence>
-    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="468,198" sap2010:WorkflowViewState.IdRef="Sequence_4">
+    <Sequence DisplayName="... Then" sap:VirtualizedContainerService.HintSize="472,421" sap2010:WorkflowViewState.IdRef="Sequence_4">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
-      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,115" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[StatusReturned]" />
+      <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="416,124" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[StatusReturned]" />
+      <uta:VerifyExpressionWithOperator AlternativeVerificationTitle="{x:Null}" KeepScreenshots="{x:Null}" OutputMessageFormat="{x:Null}" Result="{x:Null}" ScreenshotsPath="{x:Null}" ContinueOnFailure="True" DisplayName="Verify Expression with Operator" sap:VirtualizedContainerService.HintSize="416,214" sap2010:WorkflowViewState.IdRef="VerifyExpressionWithOperator_1" Operator="Equality" TakeScreenshotInCaseOfFailingAssertion="False" TakeScreenshotInCaseOfSucceedingAssertion="False">
+        <uta:VerifyExpressionWithOperator.FirstExpression>
+          <InArgument x:TypeArguments="x:Boolean">[StatusReturned("isSuccess").ToObject(Of Boolean)]</InArgument>
+        </uta:VerifyExpressionWithOperator.FirstExpression>
+        <uta:VerifyExpressionWithOperator.SecondExpression>
+          <InArgument x:TypeArguments="x:Boolean">[Boolean.Parse(in_IsSuccessExpected)]</InArgument>
+        </uta:VerifyExpressionWithOperator.SecondExpression>
+      </uta:VerifyExpressionWithOperator>
     </Sequence>
   </Sequence>
 </Activity>
